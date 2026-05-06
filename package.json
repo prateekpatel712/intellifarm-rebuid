@@ -18,5 +18,9 @@
   },
   "devDependencies": {
     "turbo": "^2.9.6"
+  },
+  "dependencies": {
+    "@types/helmet": "^4.0.0",
+    "helmet": "^8.1.0"
   }
 }

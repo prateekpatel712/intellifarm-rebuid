@@ -12,7 +12,7 @@ function inferApiBaseUrl() {
     null;
 
   if (hostUri) {
-    const host = hostUri.split(':')[0];
+    const host = hostUri.replace(/^[^:]+:\/\//, '').split(':')[0];
     if (host) {
       return `http://${host}:4000`;
     }

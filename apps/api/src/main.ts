@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
@@ -24,6 +25,7 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('v1', { exclude: ['health'] });
+  app.use(helmet());
   app.use(cookieParser());
   app.enableCors({
     origin: (

@@ -39,6 +39,7 @@ export class StorageService {
     folder: string,
     filename: string,
   ) {
+    const safeFilename = basename(filename);
     const allowedFolders = new Set([
       'disease-reports',
       'voice-notes',
@@ -53,14 +54,14 @@ export class StorageService {
     }
 
     if (user.role !== 'ADMIN') {
-      const isOwned = await this.isOwnedByUser(user.sub, folder, filename);
+      const isOwned = await this.isOwnedByUser(user.sub, folder, safeFilename);
 
       if (!isOwned) {
         throw new NotFoundException('Media file not found');
       }
     }
 
-    const absolutePath = join(this.getUploadRoot(), folder, filename);
+    const absolutePath = join(this.getUploadRoot(), folder, safeFilename);
     await access(absolutePath, constants.R_OK).catch(() => {
       throw new NotFoundException('Media file not found');
     });
